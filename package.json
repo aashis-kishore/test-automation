@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "node .",
-    "build": "rimraf -rf dist && tsc"
+    "build": "rimraf -rf dist && tsc",
+    "jserver": "json-server --watch db.json"
   },
   "keywords": [],
   "author": "Aashis Kishore <aashiskishore@gmail.com>",
