@@ -8,55 +8,53 @@ export interface Builder {
 
 type Indexable = Record<string, any>
 
-export class RequestBuilder
-  <
-    SchemaType extends Indexable,
-    DataType extends Indexable
-  > implements Builder {
+export class RequestBuilder implements Builder {
   private schemaPath: string
-  // private schema: SchemaType
-  private data: DataType
-  private unPreparedData: SchemaType
+  private schema: Indexable
+  private data: Record<string, string>
 
-  constructor(schemaPath: string, data: DataType) {
+  constructor(schemaPath: string, data: Record<string, string>) {
     this.schemaPath = path.resolve(__dirname, '../data/input/', schemaPath)
     const schmeaStr = fs.readFileSync(this.schemaPath, 'utf8')
-    // this.schema = JSON.parse(schmeaStr)
-    this.unPreparedData = JSON.parse(schmeaStr)
+    this.schema = JSON.parse(schmeaStr)
     this.data = data
   }
 
   build = (url: string): SuperAgentRequest => {
-    const preparedData = this.hydrate()
+    const preparedData = this.hydrate(this.schema, this.data)
 
     return superagent.post(url).send(preparedData)
   }
 
-  private hydrate = (): SchemaType => {
-    const keys = Object.keys(this.unPreparedData)
+  private mapValue = (schema: Indexable, data: Record<string, string>)
+    : Indexable => {
+    const keys = Object.keys(schema)
+
+    const tmpDoc: Indexable = {}
 
     keys.forEach((key) => {
-      const replacable = this.unPreparedData[key]
+      const replacable = schema[key]
 
-      if (!replacable) {
-        throw new Error('value not found')
-      }
+      const dataKey = replacable.match(/^{{(.*)}}$/)[1]
 
-      const regexArr = replacable.match(/^{{(.*)}}$/)
-
-      if (!regexArr) {
-        throw new Error('no match found')
-      }
-
-      const dataKey = regexArr[1]
-
-      // this.unPreparedData[key] = this.data[dataKey]
-      this.unPreparedData = {
-        ...this.unPreparedData,
-        [key]: this.data[dataKey]
+      if (typeof replacable === 'string') {
+        tmpDoc[key] = data[dataKey]
+      } else if (typeof replacable === 'object') {
+        tmpDoc[key] = this.hydrate(schema[key], data)
+      } else if (Array.isArray(replacable)) {
+        tmpDoc[key] = replacable
       }
     })
 
-    return this.unPreparedData
+    return tmpDoc
+  }
+
+  private hydrate = (schema: Indexable, data: Record<string, string>)
+    : Indexable => {
+    if (Array.isArray(schema)) {
+      return schema.map((subSchema) => this.mapValue(subSchema, data))
+    }
+
+    return this.mapValue(schema, data)
   }
 }
