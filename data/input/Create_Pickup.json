@@ -1,0 +1,86 @@
+{
+  "entity": "{{create_entity}}",
+  "id": "{{id}}",
+  "timestamp": {
+    "value": "{{currentTimestamp}}",
+    "timezone": "{{timezone}}"
+  },
+  "source": "{{createSource}}",
+  "orderId": "{{orderId}}",
+  "customerInfo": {
+    "email": "{{email}}",
+    "loyaltyId": "{{loyaltyId}}",
+    "profileId": "{{profileId}}",
+    "dateOfBirth": "{{dateOfBirth}}"
+  },
+  "paymentId": "{{paymentId}}",
+  "shoppingContext": {
+    "chain": "{{shoppingContext_bannerName}}",
+    "userDevice": "{{userDevice}}"
+  },
+  "costSummary": {
+    "subTotal": "{{subTotal}}",
+    "taxTotal": "{{taxTotal}}",
+    "total": "{{total}}",
+    "discountTotal": "{{discountTotal}}",
+    "discountPercent": "{{discountPercent}}"
+  },
+  "subOrders": [
+    {
+      "instanceOf": "PickupSubOrder",
+      "costSummary": {
+        "subTotal": "{{subTotal}}",
+        "taxTotal": "{{taxTotal}}",
+        "total": "{{total}}",
+        "discountTotal": "{{discountTotal}}",
+        "discountPercent": "{{discountPercent}}"
+      },
+      "fulfillmentChannelInfo": {
+        "name": "{{channelInfo_name}}"
+      },
+      "pickupInfo": {
+        "contactInfo": {
+          "firstName": "{{firstName}}",
+          "lastName": "{{lastName}}",
+          "phoneNumber": "{{phoneNumber}}",
+          "smsOptIn": "{{smsOptIn}}",
+          "smsPhoneNumber": "{{smsPhoneNumber}}"
+        },
+        "beginDateTime": {
+          "value": "{{pickUpInfo_beginDateTime}}",
+          "timezone": "{{pickUpInfo_locationTimeZone}}"
+        },
+        "endDateTime": {
+          "value": "{{pickUpInfo_endDateTime}}",
+          "timezone": "{{pickUpInfo_locationTimeZone}}"
+        },
+        "locationId": "{{pickUpInfo_locationId}}",
+        "reservationId": "{{pickUpInfo_reservationId}}"
+      },
+      "specialInstructions": "{{specialInstructions}}",
+      "priceAdjustments": [
+        {
+          "amount": "{{subOrder_adjustments_amount}}",
+          "id": "{{subOrder_adjustments_id}}",
+          "name": "{{subOrder_adjustments_name}}",
+          "type": "{{subOrder_adjustments_type}}"
+        }
+      ],
+      "lineItems": [
+        {
+          "gtin": "{{lineItem_gtin}}",
+          "description": "{{lineItem_description}}",
+          "quantity": "{{lineItem_quantity}}",
+          "priceInfo": {
+            "regular": "{{lineItem_priceInfo_regular}}",
+            "promotion": "{{lineItem_priceInfo_promotion}}"
+          },
+          "specialInstructions": "{{lineItem_specialInstructions}}",
+          "allowSubstitutes": "{{lineItem_allowSubstitutes}}",
+          "inventoryReservationToken": "{{lineItem_inventoryReservationToken}}",
+          "requestedBy": "{{lineItem_requestedBy}}"
+        }
+      ]
+    }
+  ]
+}

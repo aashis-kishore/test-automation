@@ -1,0 +1,12 @@
+{
+  "id": "{{eventId}}",
+  "entity": "{{cancel_entity}}",
+  "timestamp": {
+    "value": "{{currentTimestamp}}",
+    "timezone": "{{timezone}}"
+  },
+  "source": "{{cancelSource}}",
+  "orderId": "{{orderId}}",
+  "reasonCode": "{{cancelReason}}",
+  "cancellationNote": "{{cancelNote}}"
+}

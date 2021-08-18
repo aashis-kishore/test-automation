@@ -1,9 +1,32 @@
 {
   "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" }
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "title": "My Post",
+      "author": "Aashis Kishore",
+      "id": 2
+    },
+    {
+      "title": "Why automation matters?",
+      "author": "Aashis Kishore",
+      "id": 3
+    },
+    {
+      "title": "Why automation matters?",
+      "author": "Aashis Kishore",
+      "id": 4
+    }
   ],
   "comments": [
-    { "id": 1, "body": "some comment", "postId": 1 }
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
   ],
   "profile": {
     "name": "typicode"
