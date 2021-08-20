@@ -3,7 +3,7 @@ import { RequestBuilder } from '../lib/builder'
 
 const fileName = 'Post.xlsx'
 
-describe('Create Post', () => {
+describe.skip('Create Post', () => {
   test('should create post', async () => {
     const book = new ExcelBook(fileName)
     const createPage = book.page(book.pageNames[1])
